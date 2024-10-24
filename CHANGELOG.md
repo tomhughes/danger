@@ -11,6 +11,7 @@
 ## master
 
 <!-- Your comment below here -->
+* Make danger work with pull_request_target in GH Actions
 <!-- Your comment above here -->
 
 ## 9.5.1

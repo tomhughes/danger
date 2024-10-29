@@ -86,6 +86,8 @@ module Danger
         (3..6).any? do |factor|
           depth += Math.exp(factor).to_i
 
+          puts "Fetching branch #{branch} to depth #{depth}"
+
           git_fetch_branch_to_depth(branch, depth, options)
           commit_exists?(commitish)
         end
@@ -142,13 +144,18 @@ module Danger
       from_is_ref = commit_is_ref?(from)
       to_is_ref = commit_is_ref?(to)
 
+      puts "Branch #{from} is ref? #{from_is_ref}"
+      puts "Branch #{to} is ref? #{to_is_ref}"
+
       return unless from_is_ref || to_is_ref
 
       depth = 0
       (3..6).each do |factor|
         depth += Math.exp(factor).to_i
 
+        puts "Fetching branch #{from} to depth #{depth}" if from_is_ref
         git_fetch_branch_to_depth(from, depth) if from_is_ref
+        puts "Fetching branch #{to} to depth #{depth}" if to_is_ref
         git_fetch_branch_to_depth(to, depth) if to_is_ref
         merge_base = possible_merge_base(repo, from, to)
         return merge_base if merge_base
